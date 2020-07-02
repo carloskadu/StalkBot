@@ -8,7 +8,10 @@ Created on Tue Jun 20 14:51:33 2017
 import numpy as np
 import cv2
 import math
-
+#
+import serial
+import time
+#
 class Box:
     def __init__(self):
         self.x, self.y = float(), float()
@@ -110,7 +113,7 @@ def convert_to_cv2bbox(bbox, img_dim = (1280, 720)):
     return (left, top, right, bottom)
     
     
-def draw_box_label(id,img, bbox_cv2, box_color=(0, 255, 255), show_label=True):
+def draw_box_label(id, idchosen, img, bbox_cv2, box_color=(0, 255, 255), show_label=True):
     '''
     Helper funciton for drawing the bounding boxes and the labels
     bbox_cv2 = [left, top, right, bottom]
@@ -121,47 +124,68 @@ def draw_box_label(id,img, bbox_cv2, box_color=(0, 255, 255), show_label=True):
     font_color = (0, 0, 0)
     left, top, right, bottom = bbox_cv2[1], bbox_cv2[0], bbox_cv2[3], bbox_cv2[2]
     
+    print("O id é: " + str(id))
+    
     # Draw the bounding box
     cv2.rectangle(img, (left, top), (right, bottom), box_color, 4)
-    
-    if show_label:
-        # Draw a filled box on top of the bounding box (as the background for the labels)
-        cv2.rectangle(img, (left-2, top-45), (right+2, top), box_color, -1, 1)
-        x_m = (right+left)/2 #coord X of center box
-        y_m = (top+bottom)/2 #coord Y of center box   
-        # Output the labels that show the x and y coordinates of the bounding box center.
-        text_x= 'id =' + str(id)
-        cv2.putText(img,text_x,(left,top-25), font, font_size, font_color, 1, cv2.LINE_AA)
 
-        text_y= '(x, y)='+str(x_m) +','+str(y_m)
-        #pixel_c = "pixel =" + str(img[int(x_m),int(y_m)])
-        co = 'a,b,c,d =' + str(left) + ',' + str(right) + ',' + str(top) + ',' + str(bottom)
-        cv2.putText(img, text_y,(left,top-5), font, font_size, font_color, 1, cv2.LINE_AA)
+    if idchosen != None:
+    #if str(id) == "1":
+        if str(id) == idchosen:
+            if show_label:
+                # Draw a filled box on top of the bounding box (as the background for the labels)
+                cv2.rectangle(img, (left-2, top-45), (right+2, top), box_color, -1, 1)
+                x_m = (right+left)/2 #coord X of center box
+                y_m = (top+bottom)/2 #coord Y of center box
+                cordernadas_centro = [id,x_m,y_m]   
+                # Output the labels that show the x and y coordinates of the bounding box center.
+                text_x= 'id =' + str(id)
+                cv2.putText(img,text_x,(left,top-25), font, font_size, font_color, 1, cv2.LINE_AA)
 
-        cv2.circle(img, (int(x_m), int(y_m)), 5, box_color, 2)
+                text_y= '(x, y)='+str(x_m) +','+str(y_m)
+                #pixel_c = "pixel =" + str(img[int(x_m),int(y_m)])
+                co = 'a,b,c,d =' + str(left) + ',' + str(right) + ',' + str(top) + ',' + str(bottom)
+                cv2.putText(img, text_y,(left,top-5), font, font_size, font_color, 1, cv2.LINE_AA)
 
-        c, k, j = img.shape #(h, w, D)
-        cv2.circle(img, ((k//2), (c//2)), 20, (0, 0, 255), 2)
+                cv2.circle(img, (int(x_m), int(y_m)), 5, box_color, 2)
 
-        centrao = '(x_max, y_max) = ' + str(k) + ', ' + str(c) 
-        cv2.putText(img, centrao, ((k//2), (c//2)), font, font_size, (0, 0, 255), 1)
-        cat_1 = (k//2) - int(x_m)
-        cat_2 = (c//2) - int(y_m) 
-        hue = math.sqrt((cat_1**2) + (cat_2**2)) 
-        p_v = 160 #range for change in velocity
-        x_right = (k//2) + p_v #coord x right line
-        x_left = (k//2) - p_v #coord x left line
-        cv2.line(img,(x_right,0),(x_right,c),(0, 0, 255), 2)
-        cv2.line(img,(x_left,0),(x_left,c),(0, 0, 255), 2)
+                c, k, j = img.shape #(h, w, D)
+                cv2.circle(img, ((k//2), (c//2)), 20, (0, 0, 255), 2)
 
-        if hue > 20:
-            if int(x_m) > x_right:
-                print("\nVirar para direita\n")
-            elif int(x_m) < x_left:
-                print("\nVirar para esquerda\n")
-            print("\nFora do centro (Re-centralizar)\n")
-        else: 
-            print("\nCentralizado\n")
-        
-    
+                centrao = '(x_max, y_max) = ' + str(k) + ', ' + str(c)
+                #center of img (640x480) 
+                cv2.putText(img, centrao, ((k//2), (c//2)), font, font_size, (0, 0, 255), 1)
+                area = (right-left)*(bottom-top)
+                cat_1 = (k//2) - int(x_m)
+                cat_2 = (c//2) - int(y_m) 
+                hip = math.sqrt((cat_1**2) + (cat_2**2))
+                p_v = 160 #range for change in velocity
+                x_right = (k//2) + p_v #coord x right line
+                x_left = (k//2) - p_v #coord x left line
+                cv2.line(img,(x_right,0),(x_right,c),(0, 0, 255), 2)
+                cv2.line(img,(x_left,0),(x_left,c),(0, 0, 255), 2)
+
+                #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+                #ser.flush()
+
+                if area < 55000: #Condicional que regula a distância do carrinho ao alvo
+                    print("Movimentação Lenta")
+                else:
+                    print("Movimentação Rápida")
+
+                if hip > 20:
+                    if int(x_m) > x_right:
+                        veloc = 'direita'
+                        print('Direita')
+                        #ser.write("{}\n".format(veloc).encode('utf-8'))
+                    elif int(x_m) < x_left:
+                        veloc = 'esquerda'
+                        print('Esquerda')
+                        #ser.write("{}\n".format(veloc).encode('utf-8'))
+                    print("\nFora do centro (Re-centralizar)\n")
+                else: 
+                    print("\nCentralizado\n")
+    else:
+        print("Pessoa fora do frame!")
+
     return img    

@@ -18,6 +18,7 @@ import time
 
 # Global variables to be used by funcitons of VideoFileClop
 frame_count = 0 # frame counter
+idchosen = None #Inicia o id da pessoa como None
 
 max_age = 15  # no.of consecutive unmatched detection before 
              # a track is deleted
@@ -173,7 +174,7 @@ def pipeline(img):
              if debug:
                  print('updated box: ', x_cv2)
                  print()
-             img= helpers.draw_box_label(trk.id,img, x_cv2) # Draw the bounding boxes on the 
+             img= helpers.draw_box_label(trk.id, idchosen,img, x_cv2) # Draw the bounding boxes on the 
                                              # images
     # Book keeping
     deleted_tracks = filter(lambda x: x.no_losses >max_age, tracker_list)  
@@ -223,6 +224,9 @@ if __name__ == "__main__":
             np.asarray(img)
             new_img = pipeline(img)
             out.write(new_img)
+            #Escolher o id da pessoa
+            if cv2.waitKey(10) & 0xFF == ord('1'):
+                idchosen = "1"
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 start = time.time()
                 break
