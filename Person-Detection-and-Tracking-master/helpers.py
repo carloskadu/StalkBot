@@ -128,8 +128,13 @@ def draw_box_label(id, idchosen, img, bbox_cv2, box_color=(0, 255, 255), show_la
     
     # Draw the bounding box
     cv2.rectangle(img, (left, top), (right, bottom), box_color, 4)
-
-    if idchosen != None:
+    # Draw a filled box on top of the bounding box (as the background for the labels)
+    cv2.rectangle(img, (left-2, top-45), (right+2, top), box_color, -1, 1)
+    # Output the labels that show the x and y coordinates of the bounding box center.
+    text_x= 'id =' + str(id)
+    cv2.putText(img,text_x,(left,top-25), font, font_size, font_color, 1, cv2.LINE_AA)
+    
+    if idchosen != '0':
     #if str(id) == "1":
         if str(id) == idchosen:
             if show_label:
@@ -141,8 +146,8 @@ def draw_box_label(id, idchosen, img, bbox_cv2, box_color=(0, 255, 255), show_la
                 # Output the labels that show the x and y coordinates of the bounding box center.
                 text_x= 'id =' + str(id)
                 cv2.putText(img,text_x,(left,top-25), font, font_size, font_color, 1, cv2.LINE_AA)
-
                 text_y= '(x, y)='+str(x_m) +','+str(y_m)
+                
                 #pixel_c = "pixel =" + str(img[int(x_m),int(y_m)])
                 co = 'a,b,c,d =' + str(left) + ',' + str(right) + ',' + str(top) + ',' + str(bottom)
                 cv2.putText(img, text_y,(left,top-5), font, font_size, font_color, 1, cv2.LINE_AA)
@@ -159,33 +164,49 @@ def draw_box_label(id, idchosen, img, bbox_cv2, box_color=(0, 255, 255), show_la
                 cat_1 = (k//2) - int(x_m)
                 cat_2 = (c//2) - int(y_m) 
                 hip = math.sqrt((cat_1**2) + (cat_2**2))
-                p_v = 160 #range for change in velocity
-                x_right = (k//2) + p_v #coord x right line
-                x_left = (k//2) - p_v #coord x left line
-                cv2.line(img,(x_right,0),(x_right,c),(0, 0, 255), 2)
-                cv2.line(img,(x_left,0),(x_left,c),(0, 0, 255), 2)
+                p_v = 100 #distância máx priorização rotação
+                c_rotate = (k//2) + p_v #rotação horaria (direita)
+                antic_rotate = (k//2) - p_v #rotação antihoraria (esquerda)
+                cv2.line(img,(c_rotate,0),(c_rotate,c),(0, 0, 255), 2)
+                cv2.line(img,(antic_rotate,0),(antic_rotate,c),(0, 0, 255), 2)
 
-                #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+                #Condicional que regula a distância do carrinho ao alvo
+                #Distâcia máxima ≃ 7,0 metros
+                #55000 ≃ 1,20 metros
+                area_ideal = 55000
+                prop_areas = (area / area_ideal) + 6
+                
+                print("alfa = ", prop_areas)
+
+                if prop_areas > 6.58 and prop_areas < 7.42:
+                    veloc = 0
+                elif prop_areas == 0:
+                    veloc = -1000
+                    #auxiliar = "Pessoa fora de frame"
+                else:
+                    veloc = (2/(1+(np.e**(prop_areas-7))))-1    
+                print("VELOCIDADE: ", veloc)
+
+                #Serial Port
+                ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+                #ser.write("{}\n".format(veloc).encode('utf-8'))
                 #ser.flush()
 
-                if area < 55000: #Condicional que regula a distância do carrinho ao alvo
-                    print("Movimentação Lenta")
-                else:
-                    print("Movimentação Rápida")
-
+                # Priorização do Movimento:
                 if hip > 20:
-                    if int(x_m) > x_right:
-                        veloc = 'direita'
-                        print('Direita')
-                        #ser.write("{}\n".format(veloc).encode('utf-8'))
-                    elif int(x_m) < x_left:
-                        veloc = 'esquerda'
-                        print('Esquerda')
-                        #ser.write("{}\n".format(veloc).encode('utf-8'))
+                    if int(x_m) > c_rotate:
+                        print('Priorizar rotação horaria')
+                        ser.write("{}\n".format(veloc).encode('utf-8'))
+                        #line = ser.readline().decode('utf-8').rstrip()
+                        #print("Velocidade: ", line)
+                    elif int(x_m) < antic_rotate:
+                        print('Priorizar rotação antihoraria')
+                        ser.write("{}\n".format(veloc).encode('utf-8'))
+                        #line = ser.readline().decode('utf-8').rstrip()
+                        #print("Velocidade: ", line)
                     print("\nFora do centro (Re-centralizar)\n")
                 else: 
                     print("\nCentralizado\n")
     else:
-        print("Pessoa fora do frame!")
-
+        print("Pessoa não selecionada!")
     return img    

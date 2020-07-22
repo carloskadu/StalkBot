@@ -18,7 +18,8 @@ import time
 
 # Global variables to be used by funcitons of VideoFileClop
 frame_count = 0 # frame counter
-idchosen = None #Inicia o id da pessoa como None
+idchosen = '0' #Inicia o id da pessoa como None
+aux = 0
 
 max_age = 15  # no.of consecutive unmatched detection before 
              # a track is deleted
@@ -27,7 +28,7 @@ min_hits =1  # no. of consecutive matches needed to establish a track
 
 tracker_list =[] # list for trackers
 # list for track ID
-track_id_list= deque(['1', '2', '3', '4', '5', '6', '7', '7', '8', '9', '10'])
+track_id_list= deque(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
 
 debug = False
 
@@ -225,9 +226,19 @@ if __name__ == "__main__":
             new_img = pipeline(img)
             out.write(new_img)
             #Escolher o id da pessoa
-            if cv2.waitKey(10) & 0xFF == ord('1'):
-                idchosen = "1"
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            idlist = ['1','2','3','4','5','6','7','8','9','10']
+            if cv2.waitKey(10) & 0xFF == ord('s'):
+                aux += 1
+                try:
+                    idchosen = str(idlist[aux-1])
+                except IndexError:
+                    aux = 0
+                    idchosen = '0'
+                    print("FASE INICIAL DE ESCOLHA DE ID")
+                    continue
+                print("IDCHOSEN = " + str(idchosen))
+
+            if cv2.waitKey(10) & 0xFF == ord('q'):
                 start = time.time()
                 break
             
