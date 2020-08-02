@@ -3,13 +3,13 @@
 _O StalkBot está sendo realizado por graduandos da Universidade Estadual Paulista e membros da RAS Bauru com o intuito principal de aplicação dos conhecimentos adquiridos na formação e área de visão computacional._
  
 _O StalkBot é um projeto voltado para cuidadoria e identificação de pessoas, sendo estes seguidos pelo carrinho, e monitorados remotamente pelo usuário e atualizando constantemente sobre os status do paciente._
- 
-![StalkBot](/home/matheusabr/Downloads/RAS_img_github.jpeg)
- 
+
+![RAS - StalkBot](https://github.com/MatheusMABR/StalkBot/blob/Person-Detection-and-Tracking-master/RAS_img_github.jpeg?raw=true)
+
 *Read this in other languages: [English](https://)*
  
  
-## Introduction:
+## Introdução
  
 O projeto foi elaborado com intuito de auxiliar pessoas idosas ou pacientes em hospitais, situações nas quais é necessário monitoramento remoto constante de maneira simples, barata e eficiente.
  
@@ -21,9 +21,11 @@ A parte do Software já conta com uma rede neural que identifica e diferencia pe
  
 OBS: O protótipo está sendo elaborado para entender a comunicação serial entre Raspberry Pi e Arduino, que no presente momento está utilizando buzzer nos lugares de motores.
  
-## Getting Started:
-Deployment of the files in the environment, like this:
- 
+## Iniciando
+Disposição dos arquivos no ambiente:
+
+* O projeto foi elaborado em **Linux 16.04**
+
 ```
 ├─ dir
     ├── env
@@ -42,9 +44,9 @@ Deployment of the files in the environment, like this:
     └── 
 ```
  
-### Prerequisites:
+### Pré-requisitos
  
-What things you need to install the software and how to install them:
+As bibliotecas necessárias e como instalar cada uma:
 * Python3.6 or plus;
  
 * numpy (v1.18.4)
@@ -91,27 +93,27 @@ pip install scipy-stack
 pip3 install Pillow
 ```
 
-## Running:
+## Running
 * **Run Person_det_track.py**
 
 Note: Esse é o código principal.
 Note: Pressione "q" para encerrar o programa e "s" para selecionar a pessoa-alvo.
  
-## Explanation:
+## Explicação
 _explicar o código detalhadamente_
 Note:
  
-## Vídeo:
+## Vídeo
  
 _[![IMAGE ALT TEXT](http://img.youtube.com/vi/eZYlnhfE9Fo/0.jpg)](http://www.youtube.com/watch?v=eZYlnhfE9Fo "Projeto Carrinho AutoGuiado - primeiros passos")_
  
-## Built With:
+## Construído com
  
 * [Visual Studio Code](https://code.visualstudio.com/) - IDE usada para desenvolver o código principal.
 * [TensorFlow](https://www.tensorflow.org/?hl=pt-br) - Framework para elaboração de redes neurais.
 * [Arduino](https://www.arduino.cc/en/main/software) - IDE usado para desenvolver o código de controle dos motores.
  
-## Authors:
+## Autores
  
 * [**Felipe Zechel**](https://github.com/zechelf)
 * [**Matheus Augusto**](https://github.com/MatheusMABR)
@@ -121,8 +123,11 @@ _[![IMAGE ALT TEXT](http://img.youtube.com/vi/eZYlnhfE9Fo/0.jpg)](http://www.you
 * [**Luanne Barbosa**](https://github.com/Luanne-Barbosa)
 * [**Mauro Yoshio**](https://github.com/mayokogitgud)
  
-## License:
+## Licença
+
+Este projeto foi desenvolvido especialmente para desenvolver aprendizado, trabalho em equipe e auto-aperfeiçoamento.
  
-This project was intended specially to develop learning, teamwork and self-improvement
- 
-This project is free and non-profit. The marketing of it is prohibited.
+Este projeto é gratuito e sem fins lucrativos. A comercialização é proibida.
+
+## Reconhecimento
+* Projeto StalkBot baseado em: [Neeraj Menon](https://github.com/ambakick) - [Person-Detection-and-Tracking](https://github.com/ambakick/Person-Detection-and-Tracking)
