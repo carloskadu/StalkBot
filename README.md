@@ -4,7 +4,7 @@ _O StalkBot está sendo realizado por graduandos da Universidade Estadual Paulis
  
 _O StalkBot é um projeto voltado para cuidadoria e identificação de pessoas, sendo estes seguidos pelo carrinho, e monitorados remotamente pelo usuário e atualizando constantemente sobre os status do paciente._
 
-![RAS - StalkBot](https://github.com/MatheusMABR/StalkBot/blob/Person-Detection-and-Tracking-master/RAS_img_github.jpeg?raw=true)
+![RAS - StalkBot](https://github.com/carloskadu/StalkBot/blob/master/Person-Detection-and-Tracking-master/RAS_img_github.jpeg?raw=true)
 
 *Read this in other languages: [English](https://)*
  
@@ -29,19 +29,14 @@ Disposição dos arquivos no ambiente:
 ```
 ├─ dir
     ├── env
-    │   └── (files of the env bin,share...)
+    │   └── (files of the env bin, share...)
     ├── Arduino code/teste_buzzer_vdd
-    ├── Person-Detection-and-Tracking-master
-    │   ├── Person_det_track.py
-    │   └── helpers.py
-    ├── 
-    │   ├── 
-    │   └── 
-    ├── 
-    ├── 
-    │   └── 
-    │   └── 
-    └── 
+    │   └── teste_buzzer_vdd.ino 
+    └── Person-Detection-and-Tracking-master
+    	├── (box_coders, data, data_decoders, models, protos ...)
+    	├── Person_det_track.py
+    	├── helpers.py
+    	└── ... (.py)
 ```
  
 ### Pré-requisitos
@@ -49,7 +44,7 @@ Disposição dos arquivos no ambiente:
 As bibliotecas necessárias e como instalar cada uma:
 * Python3.6 or plus;
  
-* numpy (v1.18.4)
+* Numpy (v1.18.4)
 ```
 pip install numpy
 ```
@@ -62,33 +57,33 @@ pip install opencv-contrib-python
 ```
 pip install tensorflow==1.14.0
 ```
-* imutils (v0.5.3)
+* Imutils (v0.5.3)
 ```
 pip install imutils
 ```
-* shutil
+* Shutil
 ```
 pip install pytest-shutil
 ```
-* sklearn (v0.22.2)
+* Sklearn (v0.22.2)
 ```
 sudo pip install scikit-learn
 pip install scikit-learn
 pip install -U scikit-learn scipy matplotlib
 ```
-* pyserial (v3.4)
+* Pyserial (v3.4)
 ```
 pip install pyserial
 ```
-* matplotlib
+* Matplotlib
 ```
 sudo apt-get install python-matplotlib
 ```
-* scipy
+* Scipy
 ```
 pip install scipy-stack
 ```
-* pillow (7.1.2)
+* Pillow (7.1.2)
 ```
 pip3 install Pillow
 ```
@@ -97,6 +92,7 @@ pip3 install Pillow
 * **Run Person_det_track.py**
 
 Note: Esse é o código principal.
+
 Note: Pressione "q" para encerrar o programa e "s" para selecionar a pessoa-alvo.
  
 ## Explicação
