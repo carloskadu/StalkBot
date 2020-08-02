@@ -61,7 +61,7 @@ pip install tensorflow==1.14.0
 ```
 pip install imutils
 ```
-* Shutil
+* Shutil (v10.10.)
 ```
 pip install pytest-shutil
 ```
@@ -75,11 +75,11 @@ pip install -U scikit-learn scipy matplotlib
 ```
 pip install pyserial
 ```
-* Matplotlib
+* Matplotlib (v3.0.3)
 ```
 sudo apt-get install python-matplotlib
 ```
-* Scipy
+* Scipy (v1.4.1)
 ```
 pip install scipy-stack
 ```
@@ -97,6 +97,7 @@ Note: Pressione "q" para encerrar o programa e "s" para selecionar a pessoa-alvo
  
 ## Explicação
 _explicar o código detalhadamente_
+
 Note:
  
 ## Vídeo
@@ -115,9 +116,7 @@ _[![IMAGE ALT TEXT](http://img.youtube.com/vi/eZYlnhfE9Fo/0.jpg)](http://www.you
 * [**Matheus Augusto**](https://github.com/MatheusMABR)
 * [**Carlos Eduardo**](https://github.com/carloskadu) - Management of the team.
  
-* Collaborators:
-* [**Luanne Barbosa**](https://github.com/Luanne-Barbosa)
-* [**Mauro Yoshio**](https://github.com/mayokogitgud)
+* Colaboradores: [**Luanne Barbosa**](https://github.com/Luanne-Barbosa), [**Mauro Yoshio**](https://github.com/mayokogitgud)
  
 ## Licença
 
