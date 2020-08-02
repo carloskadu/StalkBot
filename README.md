@@ -1,8 +1,8 @@
 # StalkBot
  
-_O StalkBot está sendo realizado por graduandos da Universidade Estadual Paulista e membros da RAS Bauru com o intuito principal de aplicação dos conhecimentos adquiridos na formação e área de visão computacional.
+_O StalkBot está sendo realizado por graduandos da Universidade Estadual Paulista e membros da RAS Bauru com o intuito principal de aplicação dos conhecimentos adquiridos na formação e área de visão computacional._
  
-O StalkBot é um projeto voltado para cuidadoria e identificação de pessoas, sendo estes seguidos pelo carrinho, e monitorados remotamente pelo usuário e atualizando constantemente sobre os status do paciente._
+_O StalkBot é um projeto voltado para cuidadoria e identificação de pessoas, sendo estes seguidos pelo carrinho, e monitorados remotamente pelo usuário e atualizando constantemente sobre os status do paciente._
  
 ![StalkBot](/home/matheusabr/Downloads/RAS_img_github.jpeg)
  
@@ -68,19 +68,34 @@ pip install imutils
 ```
 pip install pytest-shutil
 ```
-* sklearn (v0.21.3)
+* sklearn (v0.22.2)
 ```
+sudo pip install scikit-learn
 pip install scikit-learn
+pip install -U scikit-learn scipy matplotlib
 ```
-*pyserial (v3.4)
+* pyserial (v3.4)
 ```
 pip install pyserial
 ```
-*
+* matplotlib
+```
+sudo apt-get install python-matplotlib
+```
+* scipy
+```
+pip install scipy-stack
+```
+* pillow (7.1.2)
+```
+pip3 install Pillow
+```
+
 ## Running:
-* **Run**
- 
-Note:
+* **Run Person_det_track.py**
+
+Note: Esse é o código principal.
+Note: Pressione "q" para encerrar o programa e "s" para selecionar a pessoa-alvo.
  
 ## Explanation:
 _explicar o código detalhadamente_
