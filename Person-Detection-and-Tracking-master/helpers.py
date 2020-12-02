@@ -188,7 +188,9 @@ def draw_box_label(id, idchosen, img, bbox_cv2, box_color=(0, 255, 255), show_la
                 print("VELOCIDADE: ", veloc)
 
                 #Serial Port
-                ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+                
+                #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+                
                 #ser.write("{}\n".format(veloc).encode('utf-8'))
                 #ser.flush()
 
@@ -196,12 +198,16 @@ def draw_box_label(id, idchosen, img, bbox_cv2, box_color=(0, 255, 255), show_la
                 if hip > 20:
                     if int(x_m) > c_rotate:
                         print('Priorizar rotação horaria')
-                        ser.write("{}\n".format(veloc).encode('utf-8'))
+                        
+                        #ser.write("{}\n".format(veloc).encode('utf-8'))
+                        
                         #line = ser.readline().decode('utf-8').rstrip()
                         #print("Velocidade: ", line)
                     elif int(x_m) < antic_rotate:
                         print('Priorizar rotação antihoraria')
-                        ser.write("{}\n".format(veloc).encode('utf-8'))
+                        
+                        #ser.write("{}\n".format(veloc).encode('utf-8'))
+                        
                         #line = ser.readline().decode('utf-8').rstrip()
                         #print("Velocidade: ", line)
                     print("\nFora do centro (Re-centralizar)\n")
